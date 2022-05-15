@@ -1,0 +1,15 @@
+/home/wolf/Documents/programming/cs-chat/bin/Debug/net6.0/cs-chat
+/home/wolf/Documents/programming/cs-chat/bin/Debug/net6.0/cs-chat.deps.json
+/home/wolf/Documents/programming/cs-chat/bin/Debug/net6.0/cs-chat.runtimeconfig.json
+/home/wolf/Documents/programming/cs-chat/bin/Debug/net6.0/cs-chat.dll
+/home/wolf/Documents/programming/cs-chat/bin/Debug/net6.0/ref/cs-chat.dll
+/home/wolf/Documents/programming/cs-chat/bin/Debug/net6.0/cs-chat.pdb
+/home/wolf/Documents/programming/cs-chat/obj/Debug/net6.0/cs-chat.csproj.AssemblyReference.cache
+/home/wolf/Documents/programming/cs-chat/obj/Debug/net6.0/cs-chat.GeneratedMSBuildEditorConfig.editorconfig
+/home/wolf/Documents/programming/cs-chat/obj/Debug/net6.0/cs-chat.AssemblyInfoInputs.cache
+/home/wolf/Documents/programming/cs-chat/obj/Debug/net6.0/cs-chat.AssemblyInfo.cs
+/home/wolf/Documents/programming/cs-chat/obj/Debug/net6.0/cs-chat.csproj.CoreCompileInputs.cache
+/home/wolf/Documents/programming/cs-chat/obj/Debug/net6.0/cs-chat.dll
+/home/wolf/Documents/programming/cs-chat/obj/Debug/net6.0/ref/cs-chat.dll
+/home/wolf/Documents/programming/cs-chat/obj/Debug/net6.0/cs-chat.pdb
+/home/wolf/Documents/programming/cs-chat/obj/Debug/net6.0/cs-chat.genruntimeconfig.cache
