@@ -1,9 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "EsbMiErJ2u5iYT0ptfdy6v8qXFyu3+XRPIa/oPYk1vzIWxgU4D5Vm8YLNFAYXPGWHxAClUDfupUbBQrw7xAJkQ==",
+  "dgSpecHash": "qS8x38y2wMXkCJNznoljoe6c3oqo+dqVTBfCvmdD+KWsyw9taEvf40omKpK4Izp6z3i5YdeESobfPUOkdPKEMA==",
   "success": true,
   "projectFilePath": "/home/wolf/Documents/programming/cs-chat/cs-chat.csproj",
   "expectedPackageFiles": [
+    "/home/wolf/.nuget/packages/atksharp/3.24.24.38/atksharp.3.24.24.38.nupkg.sha512",
+    "/home/wolf/.nuget/packages/cairosharp/3.24.24.38/cairosharp.3.24.24.38.nupkg.sha512",
+    "/home/wolf/.nuget/packages/gdksharp/3.24.24.38/gdksharp.3.24.24.38.nupkg.sha512",
+    "/home/wolf/.nuget/packages/giosharp/3.24.24.38/giosharp.3.24.24.38.nupkg.sha512",
+    "/home/wolf/.nuget/packages/glibsharp/3.24.24.38/glibsharp.3.24.24.38.nupkg.sha512",
+    "/home/wolf/.nuget/packages/gtksharp/3.24.24.38/gtksharp.3.24.24.38.nupkg.sha512",
+    "/home/wolf/.nuget/packages/pangosharp/3.24.24.38/pangosharp.3.24.24.38.nupkg.sha512",
     "/home/wolf/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.2/microsoft.aspnetcore.app.ref.6.0.2.nupkg.sha512"
   ],
   "logs": []

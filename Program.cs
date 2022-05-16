@@ -10,8 +10,7 @@ namespace Program {
 		const int page = 4096;
 		const int port = 1337;
 
-		static void Main(string[] args) {
-
+		static void SocketExample() {
 			var msg = "hello!";
 			var len = Encoding.ASCII.GetByteCount(msg);
 			var sendData = Encoding.ASCII.GetBytes(msg);
@@ -28,6 +27,25 @@ namespace Program {
 			clientStream.Write(sendData, 0, len);
 			serverStream.Read(recvData, 0, len);
 			Console.WriteLine($"[recvd]: {Encoding.ASCII.GetString(recvData)}");
+		}
+
+
+		static void ProgressBarExample(int len=20, int dt = 500) {
+			var Padding      = (int len) => new string(' ', len);
+			var Bar          = (int len, int full) => new string('#', full) + Padding(len-full);
+			var DecoratedBar = (int len, int full) => '[' + Bar(len-2, full) + ']';
+
+			int barSize = len+2;
+			Console.Write(DecoratedBar(barSize, 0));
+			for(int i=0; i<len; i++) {
+				string output = '\r' + DecoratedBar(barSize, i+1);
+				Thread.Sleep(dt);
+				Console.Write(output);
+			}
+		}
+
+		static void Main(string[] args) {
+			ProgressBarExample();
 
 		}
 	}
