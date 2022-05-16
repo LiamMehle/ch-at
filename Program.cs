@@ -12,7 +12,7 @@ namespace Program {
 
 		static void Main(string[] args) {
 
-			var msg = "My name is Neo";
+			var msg = "hello!";
 			var len = Encoding.ASCII.GetByteCount(msg);
 			var sendData = Encoding.ASCII.GetBytes(msg);
 			byte[] recvData = new byte[page];

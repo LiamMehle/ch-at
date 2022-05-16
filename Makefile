@@ -5,6 +5,7 @@ all: run
 run: build
 	dotnet run
 
-build: 
+build: Program.cs
 	dotnet build
+	touch build
 
