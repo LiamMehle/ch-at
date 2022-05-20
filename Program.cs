@@ -6,36 +6,53 @@ using System.Text;
 
 namespace Program {
 	class Packet {
-		static IEnumerable<byte[]> FromStream(Stream s) {
-			var buf = new byte[1];
-			using (var sr = new StreamReader(s)) {
-				s.Read(buf, 0, 1);
-				var packetSizeExponent = (int) buf[0];
-				var packetSize = (int)( 8*Math.Pow(2, packetSizeExponent) );
+		public static byte[] FromStream(Stream s) {
+			var packetSizeExponent = s.ReadByte();
+			var packetSize = (int) (8*Math.Pow(2, packetSizeExponent));
+			var buffer = new byte[packetSize];
+			s.Read(buffer, 0, (int) packetSize);
+			return buffer;
+		}
 
-				s.Read(buf, 0, 1);
-				var packetCount        = (ulong) buf[0];
+		public static void ToStream(Stream s, byte[] data) {
+			var dataSize = data.Length;
+			var packetSizeExponent = (byte) Math.Ceiling(Math.Log2(dataSize/8));
+			s.WriteByte((byte)packetSizeExponent);
+			var packetSize = (int) (8*Math.Pow(2, packetSizeExponent));
+			var paddedData = new byte[packetSize];
+			Buffer.BlockCopy(data, 0, paddedData, 0, dataSize);
+			s.Write(paddedData, 0, packetSize);
+		}
 
-				while(true) {
-					buf = new byte[packetSize];
+		static byte[] ToBytes(string x) {
+			return Encoding.ASCII.GetBytes(x);
+		}
 
-					s.Read(buf, 0, 1);
-					var remianingPackets = BitConverter.ToUInt64(buf, 0);
-					if(remianingPackets != packetCount--)
-						throw new ArgumentOutOfRangeException("packet lost");
-					s.Read(buf, 0, packetSize);
+		static string FromBytes(byte[] x) {
+			return Encoding.ASCII.GetString(x);
+		}
 
-					yield return buf;
+		public static string StringFromStream(Stream s) {
+			var packetSizeExponent = s.ReadByte();
+			var packetSize = (int) (8*Math.Pow(2, packetSizeExponent));
+			var buffer = new byte[packetSize];
+			s.Read(buffer, 0, (int) packetSize);
+			return FromBytes(buffer);
+		}
 
-					if(remianingPackets == 0)
-						break;
-				}
-			}
+		public static void StringToStream(Stream s, string rawData) {
+			var data = ToBytes(rawData);
+			var dataSize = data.Length;
+			var packetSizeExponent = (byte) Math.Ceiling(Math.Log2(dataSize/8));
+			s.WriteByte((byte)packetSizeExponent);
+			var packetSize = (int) (8*Math.Pow(2, packetSizeExponent));
+			var paddedData = new byte[packetSize];
+			Buffer.BlockCopy(data, 0, paddedData, 0, dataSize);
+			s.Write(paddedData, 0, packetSize);
 		}
 	}
 
 	class MainClass {
-		const int page = 4096;
 		const int port = 1337;
 
 		static byte[] ToBytes(string x) {
@@ -50,6 +67,7 @@ namespace Program {
 			var msg = "hello!";
 			var len = Encoding.ASCII.GetByteCount(msg);
 			var sendData = Encoding.ASCII.GetBytes(msg);
+			var page = 4096;
 			byte[] recvData = new byte[page];
 
 			var server = new TcpListener(IPAddress.Parse("127.0.0.1"), port);
@@ -63,6 +81,22 @@ namespace Program {
 			clientStream.Write(sendData, 0, len);
 			serverStream.Read(recvData, 0, len);
 			Console.WriteLine($"[recvd]: {Encoding.ASCII.GetString(recvData)}");
+		}
+
+		static void SocketPacketExample() {
+			var msg = "a verry long message, I swear!";
+
+			var server = new TcpListener(IPAddress.Parse("127.0.0.1"), port);
+			server.Start();
+			var client = new TcpClient("127.0.0.1", port);
+
+			var serverStream = server.AcceptTcpClient().GetStream();
+			var clientStream = client.GetStream();
+
+			Packet.ToStream(clientStream, ToBytes(msg));
+			Console.WriteLine($"[sent]:  {msg}");
+			var recvData = FromBytes(Packet.FromStream(serverStream));
+			Console.WriteLine($"[recvd]: {recvData}");
 		}
 
 		static void ProgressBarExample(int len=20, int dt=500) {
@@ -89,7 +123,7 @@ namespace Program {
 		}
 
 		static void Main(string[] args) {
-			ProgressBarExample();
+			SocketPacketExample();
 		}
 	}
 }
